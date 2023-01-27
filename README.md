@@ -1,5 +1,11 @@
 # Solidity
 
+1. Clase 3: todo solidity
+2. Clase 4: Token, Standard (EIPS) ERC20 ERC721,Contrato verificado, truffle (hs 2)
+3. Clase 5: web3
+
+https://andersbrownworth.com/blockchain/block
+
 ## Block Time
 
 Es la cantidad de tiempo que toma ejecutar esos cientos de
@@ -42,6 +48,7 @@ real.
 funcionamiento de la Mainnet utilizada para
 hacer pruebas. Existen varias Testnet como
 Ropsten y Kovan.
+
 
 ● Local: red privada utilizada para desarrollo,
 que no tiene comunicación con la red pública y
@@ -246,6 +253,8 @@ en forma secuencial.
 Se generan dos bytcodes, uno es el que se genera cuando compilamos nuestro SC y otro que vamos a mandar a la maquina virtual para guardar nuestro bytecode este ultimo tiene el constructor por ej.
 https://www.evm.codes/?fork=merge
 
+El deploy es una transaccion en si.
+
 # Encriptacion
 
 Firmo con mi clave privada y el otro desencripta con mi clave publica.
@@ -299,3 +308,63 @@ contract Storage {
     }
 }
 ```
+
+El modificador external es para ver el metodo para consumir desde afuera. (podria ser public, pero si lo hago es visible de afuera y de adentro).
+
+El modificador view indica que la funcion es de lectura (no se cobra cuando la llaman).
+
+El modificador payable me permite recibir dinero, sino solidity por default tiene una comprobación que no me lo permite.
+
+Se pueden crear nuestros propios modifiers:
+```
+modifier onlyOwner(){
+    require(owner==msg.sender,"no eres el owner");
+    _;
+}
+```
+
+consumo el modifier
+```
+function transferEtherOwner() external onlyOwner{
+
+}
+```
+Cuando deployo me da una direccion.
+
+Cuando se hace un Call Data (una llamada a la funcion del contrato) tengo que enviar una transaccion a la direccion del contrato junto con los datos.
+
+Ej de call data:
+0x6057361d00000000000..00b
+
+- 6057361d es la funcion
+- b es el dato enviado en hexa.
+
+
+### Forma canonica
+
+store(uint256) esto lo pongo en keccak 256 y tomo los primeros 8 valores hexa y me da 6057361d.
+
+### regiones de memoria 
+- inmutables van en el storage
+- memoria los no persistentes (puedo modificarlos)
+- call data
+- stack
+  
+> (ver bien)
+- Call stack
+- Stack
+- Memory
+
+
+> Ver bien: cuando mando ethers a un contrato por el constructor por ej. Donde se guardan los ethers?
+
+1 send
+2 transfer
+3 call
+
+# ERC20
+Es un standar que permite transferir un valor de una billetera a otra, tiene una cantidad de decimales.
+Es como mi propia moneda.
+# ITO
+
+Inicial token offering (es como un ICO)
