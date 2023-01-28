@@ -412,9 +412,75 @@ Configuro la versión de compilación:
  solc: 
       version: "0.8.7" que es la que venimos trabajando
 
-> Antes de deployar me pide instalar ganache que es la testnet de mi maquina.
 
-> creo la red.
+### Compilar
 
-> El metamask lo conecto con mi testnet del puerto 8545.
+```
+truffle compile
+```
 
+me genera una carpeta build con un json
+Esta el abi, el bytecode y el deploy bytecode.
+
+## deploy
+
+Ir a la carpeta migrations y crear un archivo con la siguiente nomenclatura:
+
+Cada una de las migraciones tiene un numero y guion bajo por ej: 2_contrato.js
+
+```html
+//requiero el nombre del contrato
+var contrato1= artifacts.require("Storage");
+
+module.exports=async function(deployer){
+    await deployer.deploy(contrato1,"EdIToken","EDT",1000,18);
+}
+```
+
+####  Antes de deployar me pide instalar ganache que es la testnet de mi maquina.
+Ejecutar el comando:
+
+```
+ganache-cli
+
+```
+
+Me da algunas keys con 100 ethers cada una
+```
+truffle migrate --network development
+```
+
+Starting migrations...
+======================
+> Network name:    'development'
+> Network id:      1674927291574
+> Block gas limit: 30000000 (0x1c9c380)
+
+
+2_Storage.js
+============
+
+   Deploying 'Storage'
+   -------------------
+   > transaction hash:    0x858d9dd384c0fb3c4f01a10a7aae6b8e92267522dfc807588226ab07602ede4f
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xB7C742F11219Cd75Aded4829620DaF88CD70d5A6
+   > block number:        1
+   > block timestamp:     1674927381
+   > account:             0xbEF7dE088275cfBABdcE4a19279CFe3A4A987697
+   > balance:             999.999575840125
+   > gas used:            125677 (0x1eaed)
+   > gas price:           3.375 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000424159875 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:      0.000424159875 ETH
+
+Summary
+=======
+> Total deployments:   1
+> Final cost:          0.000424159875 ETH
+
+Puedo importar una de las cuentas de ganache en metamask para conectarlo con la red local ganache.
