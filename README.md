@@ -1,8 +1,11 @@
-# Solidity
+# Curso Solidity
 
-1. Clase 3: todo solidity
-2. Clase 4: Token, Standard (EIPS) ERC20 ERC721,Contrato verificado, truffle (hs 2)
-3. Clase 5: web3
+> mi address walet de metamask: 0x9D9E2DC392f18197a49bFb43DE99Fd55eE3dA921
+
+## Clases
+3. Todo solidity
+4. Token, Standard (EIPS) ERC20 ERC721,Contrato verificado, truffle (hs 2)
+5. Web3
 
 https://andersbrownworth.com/blockchain/block
 
@@ -85,11 +88,7 @@ público.
 usa una serie de nodos para realizar las
 operaciones que necesitemos.
 
-● Nos permite enviar y recibir información.
-
-● Nos permite enviar y recibir valor.
-
-● Nos permite enviar y recibir datos.
+● Nos permite enviar y recibir: información, valores y  datos.
 
 ● Ether ilimitados.
 
@@ -166,13 +165,13 @@ la emisión de ethers.
 
 ● El costo total de la tx ahora depende de:
 
-○ Gas Price = Precio base + Priority Fee.
+> Gas Price = Precio base + Priority Fee.
 
 ● El priority fee se suele determinar mediante
 un valor máximo que es funciona como tope
 y que se calcula como:
 
-○ Max Priority Fee = 2 * base + Priority Fee.
+> Max Priority Fee = 2 * base + Priority Fee.
 
 # Transacciones
 
@@ -192,11 +191,11 @@ transacción fue exitosa.
 ## Propiedades de la transacción
 Toda transacción tiene múltiples propiedades. Entre
 las más importantes, se encuentran las siguientes:
-tx hash Identificador de la transacción.
-To Address a donde estará llegando el Ether enviado.
-Value Cantidad de Ether que se está enviando al ”To”.
-Timestamp Fecha en la que se realizó la tx.
-Transaction Fee Costo total en Ether pagado por el envío de la tx.
+1. tx hash Identificador de la transacción.
+2. To Address a donde estará llegando el Ether enviado.
+3. Value Cantidad de Ether que se está enviando al ”To”.
+4. Timestamp Fecha en la que se realizó la tx.
+5. Transaction Fee Costo total en Ether pagado por el envío de la tx.
 
 ## Ethereum Virtual Machine
 
@@ -218,12 +217,12 @@ Bytecode que es lo que realmente entiende la EVM.
 
 Cuando compilamos un contrato en Solidity obtenemos.
 
-ABI
+### ABI
 
 Interface utilizada para las dApps.
 Son como los metodos publicados para interactuar con ella. Solo los metodos externos.
 
-Bytecode
+### Bytecode
 Código de máquina que representa
 las operaciones codificadas
 previamente en Solidity. Es similar
@@ -250,35 +249,40 @@ operaciones (opcodes) que la EVM ejecutará
 en forma secuencial.
 
 
-Se generan dos bytcodes, uno es el que se genera cuando compilamos nuestro SC y otro que vamos a mandar a la maquina virtual para guardar nuestro bytecode este ultimo tiene el constructor por ej.
+Se generan dos bytcodes: uno es el que se genera cuando compilamos nuestro SC y otro que vamos a mandar a la maquina virtual para guardar nuestro bytecode este ultimo tiene el constructor por ej.
 https://www.evm.codes/?fork=merge
 
 El deploy es una transaccion en si.
 
-# Encriptacion
+# Encriptación
 
 Firmo con mi clave privada y el otro desencripta con mi clave publica.
 
 Si se hace pasar por mi y quiere encriptar con una clave publica dara un error al tambien querer desencriptar con la publica.
 
-r
-s
-v
+https://libroblockchain.com/ecdsa/
 
-## Generacion clave privada
+1. r
+2. s
+3. v
 
-Genero una clave privada(puedo utilizar un random), son 256 bits o 32 bytes o 64 nros hexadecimales.
+## Pasos para generar la clave privada
 
-Tomo esa clave y le aplico 
+1. Genero una clave privada(puedo utilizar un random), son 256 bits o 32 bytes o 64 nros hexadecimales.
+
+2. Tomo esa clave y le aplico 
 ECDSA, es una funcion criptografia de curva eliptica que te convierte de una clave privada a una publica.
 
-Una vez que tenemos esa clave publica le aplicamos Keccak256, tomo los ultimos cuarenta bytes y me da la direccion ADDRESS.
+3. Una vez que tenemos esa clave publica le aplicamos Keccak256, tomo los ultimos cuarenta bytes y me da la direccion ADDRESS.
+
 https://emn178.github.io/online-tools/keccak_256.html
 
-Metamask me da 12 palabras que equivale a la clave privada. Usa el protocolo BIP39 https://iancoleman.io/bip39/
+### Metamask 
+Me da 12 palabras que equivale a la clave privada. Usa el protocolo BIP39 https://iancoleman.io/bip39/
+
 Divide los bits en 12 o 24 y asigna palabras.
 
-Etherscan
+### Etherscan
 Le puedo pasar mi direccion de metamask(tengo que decirle que busque en Goerli que es la de prueba que uso).
 
 
@@ -309,11 +313,12 @@ contract Storage {
 }
 ```
 
-El modificador external es para ver el metodo para consumir desde afuera. (podria ser public, pero si lo hago es visible de afuera y de adentro).
+### Modificadores:
+*External:* es para ver el metodo para consumir desde afuera. (podria ser public, pero si lo hago es visible de afuera y de adentro).
 
-El modificador view indica que la funcion es de lectura (no se cobra cuando la llaman).
+*View:* indica que la funcion es de lectura (no se cobra cuando la llaman).
 
-El modificador payable me permite recibir dinero, sino solidity por default tiene una comprobación que no me lo permite.
+*Payable:* me permite recibir dinero, sino solidity por default tiene una comprobación que no me lo permite.
 
 Se pueden crear nuestros propios modifiers:
 ```
@@ -329,6 +334,7 @@ function transferEtherOwner() external onlyOwner{
 
 }
 ```
+### Deploy
 Cuando deployo me da una direccion.
 
 Cuando se hace un Call Data (una llamada a la funcion del contrato) tengo que enviar una transaccion a la direccion del contrato junto con los datos.
@@ -341,8 +347,9 @@ Ej de call data:
 
 
 ### Forma canonica
-
-store(uint256) esto lo pongo en keccak 256 y tomo los primeros 8 valores hexa y me da 6057361d.
+Tomamos la forma canonica de una función (nombre y tipo de los parametros). 
+Ej:
+**store(uint256)** esto lo pongo en keccak 256 y tomo los primeros 8 valores hexa y me da 6057361d.
 
 ### regiones de memoria 
 - inmutables van en el storage
@@ -358,13 +365,56 @@ store(uint256) esto lo pongo en keccak 256 y tomo los primeros 8 valores hexa y 
 
 > Ver bien: cuando mando ethers a un contrato por el constructor por ej. Donde se guardan los ethers?
 
-1 send
-2 transfer
-3 call
+1. send
+2. transfer
+3. call
 
 # ERC20
 Es un standar que permite transferir un valor de una billetera a otra, tiene una cantidad de decimales.
 Es como mi propia moneda.
+
 # ITO
 
 Inicial token offering (es como un ICO)
+
+
+# Truffle
+
+Instalar:
+> npm install -g truffle
+
+Verificar la versión:
+
+> truffle version
+
+Crear proyecto:
+
+> truffle init
+
+### Archivos importantes: 
+- contracts/: Directory for Solidity contracts
+- migrations/: Directory for scriptable deployment files
+- test/: Directory for test files for testing your application and contracts
+- truffle-config.js: Truffle configuration file
+  
+> agrego la extension: truffle for vs code
+
+En truffle-config.js configuro la red que voy a utilizar en este caso la localhost.
+
+```
+    development: {
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 8545,            // Standard Ethereum port (default: none)
+      network_id: "*",       // Any network (default: none)
+    },
+```
+Configuro la versión de compilación:
+ solc: 
+      version: "0.8.7" que es la que venimos trabajando
+
+> Antes de deployar me pide instalar ganache que es la testnet de mi maquina.
+
+> creo la red.
+
+> El metamask lo conecto con mi testnet del puerto 8545.
+
