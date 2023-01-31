@@ -484,3 +484,11 @@ Summary
 > Final cost:          0.000424159875 ETH
 
 Puedo importar una de las cuentas de ganache en metamask para conectarlo con la red local ganache.
+
+### Consola truffle
+> Asegurarse que este corriendo ganache (ganache-cli)
+
+```
+truffle console --network development
+```
+
