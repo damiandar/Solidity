@@ -503,8 +503,35 @@ const artefacto= artifacts.require("Storage")
 ```
 
 artefacto.  (con tab me muestra las opciones)
-## Funcion call
 
+## Formas de transferir
+
+hay tres formas en las que uno puede enviar éter:
+
+1- transfer() 
+2- send()
+3- call() 
+## Transfer
+
+transfer -> el contrato inteligente receptor debe tener definida una función *fallback* o, de lo contrario, la llamada de transferencia generará un error . Hay un límite de gas de 2300 gas , que es suficiente para completar la operación de transferencia. Está codificado para evitar *reentrancy attacks*
+
+
+
+send -> Funciona de manera similar a la transferencia de llamadas y también tiene un límite de gas de 2300 gas . Devuelve el estado como un booleano.
+
+
+## Funcion call
+Es la forma recomendada de enviar ETH a un contrato inteligente. El argumento vacío activa la función de *fallback* de la dirección de recepción.
+```
+(bool enviado,datos de memoria) = _to.call{value: msg.value}("");
+```
+
+usando call , también se pueden activar otras funciones definidas en el contrato y enviar una cantidad fija de gas para ejecutar la función. 
+El estado de la transacción se envía como un valor booleano y el valor de retorno se envía en la variable de datos.
+
+```
+(bool enviado, bytes de datos de memoria) = _to.call{gas :10000, value: msg.value}("func_signature(uint256 args)");
+```
 La función call es de bajo nivel y sirve para interactuar con otros contratos. Al crear un contrato inteligente de Solidity, el método "call" debe usarse cada vez que desee interactuar con otro contrato.
 Si un usuario llama a un contrato el msg.sender==tx.origin, pero si un contrato llama a otro entonces en el 2do contrato el msg.sender!=tx.origin.
 ```
