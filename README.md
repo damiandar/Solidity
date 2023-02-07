@@ -57,6 +57,11 @@ funcionamiento de la Mainnet utilizada para
 hacer pruebas. Existen varias Testnet como
 Ropsten y Kovan.
 
+Goerli es la red publica de ethereum.
+goerli.etherscan
+
+Mumbai es la red publica de polygom.
+
 
 ● Local: red privada utilizada para desarrollo,
 que no tiene comunicación con la red pública y
@@ -537,6 +542,10 @@ Si un usuario llama a un contrato el msg.sender==tx.origin, pero si un contrato 
 ```
 (bool error,bytes memory valor)=contrato.call(msg.data);
 ```
+## Revert
+
+Es muy similar a la función require. Sin embargo, no evalúa ninguna declaración y no depende de ningún estado o declaración. Presionar una declaración revert significa que se lanza una excepción, junto con el retorno del gas no utilizado, y vuelve a su estado original.
+
 ## Assert y Require
 
 assert no permite enviar mensajes, cuando la condicion es falsa tiende a consumir todo el gas restante y revierte los cambios realizados.
@@ -565,7 +574,25 @@ contract Example {
     }
 }
 ```
+## LLamar a contrato con interfaces
 
+```
+interface coinfliper {
+    function flip(bool _guess) external returns (bool);
+}
+
+contract CoinFlip {
+
+  coinfliper public myContract; 
+
+  constructor(address _addr) {
+    myContract= coinfliper(_addr); 
+  }
+
+  function flip2() public {
+    myContract.flip(true); // llamo al otro contratocontrato 
+  }
+```
 ## Withdraw
 
 garantiza que no se realice una llamada de transferencia directa, lo que representa una amenaza para la seguridad. El siguiente contrato muestra el uso inseguro de la llamada de transferencia para enviar ether.
