@@ -3,11 +3,16 @@
 > mi address walet de metamask: 0x9D9E2DC392f18197a49bFb43DE99Fd55eE3dA921
 
 ## Clases
-3. Todo solidity
+3. Funciones en solidity
 4. Token, Standard (EIPS) ERC20 ERC721,Contrato verificado, truffle (hs 2)
 5. Web3
+6. test
+7. test, withdraw
+
+
 
 https://andersbrownworth.com/blockchain/block
+https://www.tutorialspoint.com/solidity/
 
 ## Block Time
 
@@ -491,4 +496,76 @@ Puedo importar una de las cuentas de ganache en metamask para conectarlo con la 
 ```
 truffle console --network development
 ```
+Dentro de la consola:
 
+```
+const artefacto= artifacts.require("Storage")
+```
+
+artefacto.  (con tab me muestra las opciones)
+## Funcion call
+
+La función call es de bajo nivel y sirve para interactuar con otros contratos. Al crear un contrato inteligente de Solidity, el método "call" debe usarse cada vez que desee interactuar con otro contrato.
+Si un usuario llama a un contrato el msg.sender==tx.origin, pero si un contrato llama a otro entonces en el 2do contrato el msg.sender!=tx.origin.
+```
+(bool error,bytes memory valor)=contrato.call(msg.data);
+```
+## Assert y Require
+
+assert no permite enviar mensajes, cuando la condicion es falsa tiende a consumir todo el gas restante y revierte los cambios realizados.
+require envio un mensaje, cuando la condicion es falsa se reembolsan todas las tarifas de gas restantes que ofrecimos pagar mas alla de que se reviertan todos los cambios.
+## receive y fallback 
+
+Las funciones para recibir dinero tienen que tener el modificador de payable. Pero si desde una billetera queremos mandar dinero a un contrato, él no tiene una función especifica para eso se crea la función receive(). Si además de mandar ether mandamos datos entonces lo recibe la función fallback().
+
+Es una nueva palabra clave en Solidity 0.6.x que se usa como una función alternativa que solo puede recibir ether.
+
+> receive() external payable— para datos de llamada vacíos (y cualquier valor)
+
+> fallback() external payable— cuando ninguna otra función coincide (ni siquiera la función de recepción). Opcionalmente payable. Toma el msg.data
+
+```
+contract Example {
+    // The receive function is executed when a contract receives Ether
+    function receive() external payable {
+        // code executed when the contract receives Ether
+    }
+    
+    // The fallback function is executed when a contract is called without
+    // specifying a function signature
+    function () external payable {
+        // code executed when the fallback function is called
+    }
+}
+```
+
+## Withdraw
+
+garantiza que no se realice una llamada de transferencia directa, lo que representa una amenaza para la seguridad. El siguiente contrato muestra el uso inseguro de la llamada de transferencia para enviar ether.
+
+```
+contract Test {
+   address payable public richest;
+   uint public mostSent;
+
+   constructor() public payable {
+      richest = msg.sender;
+      mostSent = msg.value;
+   }
+   function becomeRichest() public payable returns (bool) {
+      if (msg.value > mostSent) {
+         // Insecure practice
+         richest.transfer(msg.value);
+         richest = msg.sender;
+         mostSent = msg.value;
+         return true;
+      } else {
+         return false;
+      }
+   }
+}
+```
+
+El contrato anterior se puede convertir en un estado inutilizable al hacer que el más rico sea un contrato de falla en la función fallback. Cuando la función fallback falla, la función BecomeRichest() también falla y el contrato se atascará para siempre. Para mitigar este problema, podemos usar el patrón withdraw.
+
+En el patrón withdraw, restableceremos el monto pendiente antes de cada transferencia. Se asegurará de que solo falle el contrato de la persona que llama.
