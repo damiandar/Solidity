@@ -264,13 +264,25 @@ https://www.evm.codes/?fork=merge
 
 El deploy es una transaccion en si.
 
-# Encriptación
+# Encriptación 
 
 Firmo con mi clave privada y el otro desencripta con mi clave publica.
 
 Si se hace pasar por mi y quiere encriptar con una clave publica dara un error al tambien querer desencriptar con la publica.
 
+ECDSA nos permitirá obtener una clave pública a partir de una clave privada. Con ambas claves ya podremos firmar transacciones y verificar luego las firmas.
+
 https://libroblockchain.com/ecdsa/
+
+ECDSA en su especificación secp256k1 (la usada en protocolos blockchain) para obtener la clave publica K a partir de una clave privada aleatoria k y de un punto dado G llamado punto base que siempre es el mismo. Este punto es público, se determina por el protocolo y no cambia nunca.
+
+```
+
+k * G = K
+ 
+Clave privada * Punto base = Clave pública
+```
+ECDSA utiliza una serie de operaciones aritméticas especiales sobre puntos en una curva elíptica. Para ello se recurre a dos tipos de operaciones especiales: la suma y la multiplicación de puntos en la curva.
 
 1. r
 2. s
