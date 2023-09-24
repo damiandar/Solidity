@@ -284,9 +284,9 @@ Clave privada * Punto base = Clave pública
 ```
 ECDSA utiliza una serie de operaciones aritméticas especiales sobre puntos en una curva elíptica. Para ello se recurre a dos tipos de operaciones especiales: la suma y la multiplicación de puntos en la curva.
 
-1. r
-2. s
-3. v
+1. r  32 bytes (ephemeral random value)   r= K * G    k valor ramdon de cada firma (nonce) y g generador.
+2. s  32 bytes Puntero que indica la ubicación donde fueron almacenados en el array r,s y v.
+3. v   1 byte indica si pertenece a la parte inferior o superior de la curva.
 
 ## Pasos para generar la clave privada
 
