@@ -205,6 +205,10 @@ Ten en cuenta que, si bien las primeras 23 Palabras son completamente aleatorias
 
 Abreviatura de la frase en inglés “know your costumer” o “conoce a tu cliente”, se trata de una serie de exigencias regulatorias que se aplican a nivel mundial a empresas financieras —entre ellas los exchanges de criptomonedas— para facilitar la identificación de los clientes.
 
+## Onboarding digital 
+
+Es el proceso de identificación no presencial, que ayuda a los bancos a agilizar la incorporación de nuevos clientes y a los usuarios a realizar los trámites desde cualquier lugar. En el onboarding digital se vinculan clientes nuevos o antiguos a los servicios financieros de manera 100% digital.
+
 # Transacciones
 
 ## Transaction Hash
