@@ -188,9 +188,13 @@ y que se calcula como:
 Es un estándar para la generación y la interpretación de la Frase de Recuperación en todos nuestros dispositivos. El estándar BIP39 es un estándar del sector utilizado por muchas otras billeteras deterministas jerárquicas. El tipo exacto de Semilla BIP39 que utilizan los dispositivos Ledger de forma predeterminada es una Frase mnemotécnica de 24 Palabras compuesta únicamente a partir de las 2048 Palabras de la lista de Palabras en inglés BIP39. Una Semilla Mnemotécnica de 24 Palabras BIP39 se genera de la siguiente manera:
 
 ● El dispositivo genera una secuencia de 256 bits aleatorios con el generador de números verdaderamente aleatorios (TRNG) integrado en el Elemento Seguro del dispositivo.
+
 ● Los primeros 8 bits del hash SHA256 de los 256 bits iniciales se incorporan al final, lo que nos da 264 bits.
+
 ● Los 264 bits se dividen en 24 grupos de 11 bits.
+
 ● Cada grupo de 11 bits se interpreta como un número en el rango de 0 a 2047, lo cual funciona como índice para la lista de Palabras BIP39, lo que genera 24 Palabras.
+
 
 Es importante tener en cuenta que, a pesar de que es posible restaurar un dispositivo Ledger utilizando una Frase de Recuperación de 12, 18 o 24 Palabras, los dispositivos Ledger sólo generan Frases de recuperación de 24 Palabras. No crearán frases de 12 o 18 palabras.
 El resultado de este proceso es que tu dispositivo generará una única Semilla mnemotécnica entre 2256 posibles Semillas mnemotécnicas (es decir, una entre 115 792 089 237 316 195 423 570 985 008 687 907 853 269 984 665 640 564 039 457 584 007 913 129 639 936 posibles semillas mnemotécnicas). 
