@@ -201,6 +201,10 @@ El resultado de este proceso es que tu dispositivo generará una única Semilla 
 
 Ten en cuenta que, si bien las primeras 23 Palabras son completamente aleatorias, la última Palabra se deriva de 3 bits aleatorios y 8 bits calculados del hash SHA256. Eso significa que la última Palabra puede actuar como una suma de verificación: si introduces una Semilla incorrecta en el dispositivo al tratar de recuperarlo, es posible que detecte que la Semilla introducida no es válida.
 
+## KYC
+
+Abreviatura de la frase en inglés “know your costumer” o “conoce a tu cliente”, se trata de una serie de exigencias regulatorias que se aplican a nivel mundial a empresas financieras —entre ellas los exchanges de criptomonedas— para facilitar la identificación de los clientes.
+
 # Transacciones
 
 ## Transaction Hash
